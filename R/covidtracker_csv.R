@@ -12,7 +12,8 @@
 #' @export
 covidtracker_update_actions_csv <- function(file, from = NULL, to = Sys.Date(), verbose = TRUE){
   checkmate::assert_file_exists(file)
-  from <- as.Date(from); to <- as.Date(to)
+  if(!is.null(from)) from <- as.Date(from);
+  to <- as.Date(to)
   checkmate::assert_date(from, null.ok = TRUE)
   checkmate::assert_date(to)
 
@@ -21,18 +22,26 @@ covidtracker_update_actions_csv <- function(file, from = NULL, to = Sys.Date(), 
   colnames <- colnames(x)
   countries <- unique(x$country_code)
   dates <- as.Date(unique(x$date))
-  x[is.na(x)] <- ""
+
+  x$policyvalue <- as.numeric(x$policyvalue)
+  x$isgeneral <- suppressWarnings(as.logical(x$isgeneral))
+
   if(is.null(from)) from <- dates[which.min(dates)]
 
   update_dates <- seq(from, to, by = 1)
   update_dates <- update_dates[!update_dates %in% dates]
+  if(length(update_dates) == 0) {
+    message("Already up to date.")
+    return(invisible(TRUE))
+  }
 
   ctad <- covidtracker_actions_dates(countries, update_dates, verbose = TRUE)
   ctad <- data_frame_actions(ctad)
   ctad <- ctad[,colnames]
 
   x <- rbind(x, ctad)
-  x[order(x$date, x$country_code, x$policy_type_code),]
+  x <- x[order(x$country_code, x$date, x$policy_type_code),]
+  write.csv(x, file = file, row.names = FALSE)
 }
 
 #' @rdname covidtracker_update_actions_csv
@@ -46,8 +55,8 @@ covidtracker_create_actions_csv <- function(file, countries, from, to, verbose =
   checkmate::assert_flag(verbose)
 
   cta <- covidtracker_actions_range(countries, from, to, verbose)
-  cta <- data_frame_actions(cta)
-  cta <- cta[order(cta$date, cta$country_code, cta$policy_type_code),]
+  cta <- data_frame_actions(x = cta)
+  cta <- cta[order(cta$country_code, cta$date, cta$policy_type_code),]
   write.csv(cta, file = file, row.names = FALSE)
 
 }

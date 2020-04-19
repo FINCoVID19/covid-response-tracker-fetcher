@@ -104,6 +104,8 @@ data_frame_actions.covidtracker_actions <- function(x, ...){
   # Replace NULL with ""
   xpa <- lapply(x[["policyActions"]], function(x) lapply(x, function(x) if(is.null(x)) return("") else return(x)))
   xpa <- do.call(rbind, lapply(xpa, as.data.frame, stringsAsFactors = FALSE))
+  xpa$policyvalue <- as.numeric(xpa$policyvalue)
+  xpa$isgeneral <- suppressWarnings(as.logical(xpa$isgeneral))
   xpa$date <- x$stringencyData$date_value
   xpa$country_code <- x$stringencyData$country_code
   nc <- ncol(xpa)
