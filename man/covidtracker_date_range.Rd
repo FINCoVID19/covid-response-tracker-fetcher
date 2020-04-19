@@ -4,18 +4,16 @@
 \alias{covidtracker_date_range}
 \alias{covidtracker_actions}
 \alias{covidtracker_actions_range}
+\alias{covidtracker_actions_dates}
 \title{Access COVID Tracker API}
 \usage{
 covidtracker_date_range(from, to)
 
 covidtracker_actions(country, date)
 
-covidtracker_actions_range(
-  countries = c("FIN", "SWE"),
-  from = "2020-03-01",
-  to = "2020-03-05",
-  verbose = TRUE
-)
+covidtracker_actions_range(countries, from, to, verbose = TRUE)
+
+covidtracker_actions_dates(countries, dates, verbose = TRUE)
 }
 \arguments{
 \item{from}{the first date to return data for}
@@ -29,6 +27,8 @@ covidtracker_actions_range(
 \item{countries}{a vector of ISO 3166-1 alpha-3 country codes}
 
 \item{verbose}{show progress of data download}
+
+\item{dates}{multiple dates to return data for}
 }
 \description{
 Access data on government reactions to COVID-19 pandemic
