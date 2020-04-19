@@ -49,6 +49,6 @@ covidtracker_create_actions_csv <- function(file, countries, from, to, verbose =
   cta <- data_frame_actions(cta)
   cta$notes <- NULL
   cta <- cta[order(cta$date, cta$country_code, cta$policy_type_code),]
-  write.csv(cta, file = "interventions_oxford.csv", row.names = FALSE)
+  write.csv(cta, file = file, row.names = FALSE)
 
 }
