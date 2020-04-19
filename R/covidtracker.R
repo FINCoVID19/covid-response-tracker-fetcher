@@ -50,7 +50,6 @@ covidtracker_actions <- function(country, date){
   obj$date <- date
   class(obj) <- c("covidtracker_actions", "list")
   if(!test_covidtracker_actions(obj)){
-    cat("\n")
     warning("Incorrect object for ", country, " ", date, ". NULL returned.", call. = FALSE)
     return(NULL)
   }
