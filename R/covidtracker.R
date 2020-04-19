@@ -46,8 +46,25 @@ covidtracker_actions <- function(country, date){
   checkmate::assert_string(country, pattern = "[A-Za-z]{3}")
   r <- httr::GET(paste0("https://covidtrackerapi.bsg.ox.ac.uk/api/stringency/actions/", country, "/", date))
   obj <- httr::content(r)
+  obj$country <- country
+  obj$date <- date
   class(obj) <- c("covidtracker_actions", "list")
+  if(!test_covidtracker_actions(obj)){
+    cat("\n")
+    warning("Incorrect object for ", country, " ", date, ". NULL returned.", call. = FALSE)
+    return(NULL)
+  }
   obj
+}
+
+assert_covidtracker_actions <- function(x){
+  checkmate::assert_class(x, "covidtracker_actions")
+  checkmate::assert_names(names(x), identical.to = c("policyActions", "stringencyData", "country", "date"))
+  checkmate::assert_names(names(x$stringencyData), identical.to = c("date_value", "country_code", "confirmed", "deaths", "stringency_actual", "stringency"))
+}
+
+test_covidtracker_actions <- function(x){
+  !inherits(try(assert_covidtracker_actions(x), silent = TRUE), "try-error")
 }
 
 #' @rdname covidtracker_date_range
