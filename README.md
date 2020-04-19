@@ -16,7 +16,7 @@ remotes::install_github("FINCoVID19/covid-response-tracker-fetcher")
 To access data and store it as a csv, for countries
 
 ```
-librarary(covidresponser)
+library(covidresponser)
 
 countries <- c("DNK", "ITA", "DEU", "ESP", "GBR", "FRA", "NOR", "BEL", "AUT", "SWE", "CHE", "GRC", "PRT", "NLD", "FIN")
 
@@ -30,10 +30,7 @@ We can then easily update the csv as
 
 
 ```
-librarary(covidresponser)
-
-countries <- c("DNK", "ITA", "DEU", "ESP", "GBR", "FRA", "NOR", "BEL", "AUT", "SWE", "CHE", "GRC", "PRT", "NLD", "FIN")
-
+library(covidresponser)
 covidtracker_update_actions_csv(file = "interventions_oxford.csv", 
                                 to = "2020-03-18")
 ```
