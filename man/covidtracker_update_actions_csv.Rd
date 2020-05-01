@@ -3,6 +3,8 @@
 \name{covidtracker_update_actions_csv}
 \alias{covidtracker_update_actions_csv}
 \alias{covidtracker_create_actions_csv}
+\alias{covidtracker_csv_v4}
+\alias{covidtracker_csv_v5}
 \title{Create and store API data as CSV files}
 \usage{
 covidtracker_update_actions_csv(
@@ -13,6 +15,10 @@ covidtracker_update_actions_csv(
 )
 
 covidtracker_create_actions_csv(file, countries, from, to, verbose = TRUE)
+
+covidtracker_csv_v4(countries = NULL, parse_factors = FALSE)
+
+covidtracker_csv_v5(countries = NULL, parse_factors = FALSE)
 }
 \arguments{
 \item{file}{csv-file to store or update}
@@ -24,6 +30,8 @@ covidtracker_create_actions_csv(file, countries, from, to, verbose = TRUE)
 \item{verbose}{show progress of data download}
 
 \item{countries}{a vector of ISO 3166-1 alpha-3 country codes}
+
+\item{parse_factors}{pars ordinal variables to factors}
 }
 \description{
 Create and store API data as CSV files
@@ -31,4 +39,5 @@ Create and store API data as CSV files
 \details{
 [covidtracker_create_actions_csv()] create a csv file to store response information in
 [covidtracker_create_update_csv()] update an existing csv file with new data
+[covidtracker_csv()] access and the published CSV-file directly
 }
