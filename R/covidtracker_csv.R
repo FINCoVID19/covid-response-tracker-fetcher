@@ -213,20 +213,22 @@ covidtracker_csv_v5 <- function(countries = NULL, parse_factors = FALSE){
 measure_ordinal_labels_v5 <- function(){
   ml <- list()
   ml[[length(ml) + 1]] <-
-    data.frame(variable = c(rep("C1", 3)),
-               names = c(rep("School closing", 3)),
-               code = c(0, 1, 2),
+    data.frame(variable = c(rep("C1", 4)),
+               names = c(rep("School closing", 4)),
+               code = c(0, 1, 2, 3),
                label = c("No measures",
                          "Recommend closing",
-                         "Require closing"),
+                         "Require closing (some)",
+                         "Require closing (all)"),
                stringsAsFactors = FALSE)
   ml[[length(ml) + 1]] <-
-    data.frame(variable = c(rep("C2", 3)),
-               names = c(rep("Workplace closing", 3)),
-               code = c(0, 1, 2),
+    data.frame(variable = c(rep("C2", 4)),
+               names = c(rep("Workplace closing", 4)),
+               code = c(0, 1, 2, 3),
                label = c("No measures",
-                         "Recommend closing",
-                         "Require closing"),
+                         "Recommend closing ",
+                         "Require closing (some)",
+                         "Require closing (all)"),
                stringsAsFactors = FALSE)
   ml[[length(ml) + 1]] <-
     data.frame(variable = c(rep("C3", 3)),
